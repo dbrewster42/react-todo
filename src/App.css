@@ -12,13 +12,28 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+ol {
+  display: flex;
+  flex-direction: column;
+}
 .rows {
   width: 550px;
   height: 35px;
+  text-align: start;
+  font-size: large;
 }
 .btn {
   margin: 0px 10px 0px 10px;
   border-radius: 10px;
+  background-color: red;
+}
+.bt2 {
+  background-color: blue;
+  color: white;
+}
+.bt3 {
+  background-color: orange;
+  color: green;
 }
 
 .tlist {

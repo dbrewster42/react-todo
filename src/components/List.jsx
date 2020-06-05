@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const List = () => {
   const [item, setItem] = useState("");
   const [todoList, setToDoList] = useState([
-    "make doctor's appointment",
-    "clean the dishes",
+    { task: "make doctor's appointment", completed: false },
+    { task: "clean the dishes", completed: true },
   ]);
 
   const handleChange = (e) => {
@@ -12,9 +12,9 @@ const List = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("2", e.target.item.value);
-    todoList.push(e.target.item.value);
-    console.log("1", todoList);
+    console.log("1", e.target.item.value);
+    todoList.push({ task: e.target.item.value, completed: false });
+    console.log("2", todoList);
     setItem("");
   };
   const remove = (e) => {
@@ -35,8 +35,16 @@ const List = () => {
   const removeAll = (e) => {
     setToDoList([]);
   };
+  const toggleC = (e) => {
+    let ids = e.target.value;
+    console.log(ids, "1", todoList[ids]);
+    let comp = todoList[ids];
+    console.log(comp);
+    comp.completed = !comp.completed;
+    console.log(comp);
+  };
   return (
-    <div>
+    <div id="box">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -49,15 +57,25 @@ const List = () => {
       <ol className="tlist">
         {todoList.map((item, i) => (
           <li key={i} className="rows">
-            {item}
+            {item.task}
             <button
               onClick={remove}
-              name={item}
+              name={item.task}
               value={i}
               className="btn btn-danger"
             >
               X
             </button>
+            Completed-
+            {item.completed ? (
+              <button className="bt2" value={i} onClick={toggleC}>
+                {item.completed ? "True" : "False"}
+              </button>
+            ) : (
+              <button className="bt3" value={i} onClick={toggleC}>
+                {item.completed ? "True" : "False"}
+              </button>
+            )}
           </li>
         ))}
       </ol>
