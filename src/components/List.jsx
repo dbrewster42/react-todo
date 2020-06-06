@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const List = () => {
   const [item, setItem] = useState("");
@@ -6,6 +6,10 @@ const List = () => {
     { task: "make doctor's appointment", completed: false },
     { task: "clean the dishes", completed: true },
   ]);
+  useEffect(() => {
+    console.log(todoList);
+    setToDoList(todoList);
+  }, [todoList]);
 
   const handleChange = (e) => {
     setItem(e.target.value);
@@ -13,7 +17,8 @@ const List = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("1", e.target.item.value);
-    todoList.push({ task: e.target.item.value, completed: false });
+    // todoList.push({ task: e.target.item.value, completed: false });
+    setToDoList([...todoList, { task: e.target.item.value, completed: false }]);
     console.log("2", todoList);
     setItem("");
   };
@@ -28,9 +33,9 @@ const List = () => {
       "3",
       e.target.key
     );
-    todoList.splice(e.target.value, 1);
-    console.log(todoList);
-    return todoList;
+    const newToDo = todoList.splice(e.target.value, 1);
+    console.log(newToDo);
+    setToDoList(newToDo);
   };
   const removeAll = (e) => {
     setToDoList([]);
@@ -38,10 +43,12 @@ const List = () => {
   const toggleC = (e) => {
     let ids = e.target.value;
     console.log(ids, "1", todoList[ids]);
-    let comp = todoList[ids];
-    console.log(comp);
+    const newToDo = [...todoList];
+    console.log(newToDo);
+    let comp = newToDo[ids];
     comp.completed = !comp.completed;
     console.log(comp);
+    setToDoList(newToDo);
   };
   return (
     <div id="box">
